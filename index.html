@@ -6,18 +6,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 550px; }
+        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 620px; }
         .form-group { margin-bottom: 10px; }
         label { display: block; font-weight: bold; color: #636567; font-size: 13px; margin-bottom: 5px; }
         input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         
         #preview { background: white; padding: 20px; margin-top: 20px; border: 1px solid #ddd; }
-        .firma-table { border-collapse: collapse; width: 450px; background-color: white !important; }
-        .logo-td { padding-right: 15px; vertical-align: middle; width: 130px; }
-        .linea-td { border-left: 2px solid #636567; padding-left: 15px; vertical-align: middle; text-align: left; }
+        .firma-table { border-collapse: collapse; background-color: white !important; }
+        .logo-principal-td { padding-right: 15px; vertical-align: top; border-right: 2px; padding-top: 15px; padding-bottom: 40px; border-right: 2px solid #636567; }
+        .datos-td { padding: 0 15px; vertical-align: middle; text-align: left; min-width: 220px; }
+        .certificaciones-td { padding-left: 10px; vertical-align: middle; }
         
-        .nombre { font-family: 'Gill Sans MT', sans-serif; font-size: 12pt; font-style: italic; font-weight: bold; color: #636567; text-transform: uppercase; }
-        .cargo { font-family: 'Gill Sans MT', sans-serif; font-size: 10pt; color: #636567; margin-bottom: 5px; }
+        .nombre { font-family: 'Gill Sans MT', sans-serif; font-size: 12pt; font-style: italic; font-weight: bold; color: #636567; text-transform: none; }
+        .cargo { font-family: 'Gill Sans MT', sans-serif; font-size: 10pt; color: #636567; margin-bottom: 5px; font-weight: bold; }
         .datos { font-family: 'Arial Narrow', sans-serif; font-size: 9pt; color: #636567; line-height: 1.2; }
         .naranja { color: #F9A21B; font-weight: bold; }
 
@@ -30,28 +31,42 @@
 <div class="card">
     <h3 style="color:#636567; margin-top:0;">Generador Local Xtrategia</h3>
     
-    <div class="form-group"><label>Nombre:</label><input type="text" id="inN" oninput="upd()"></div>
-    <div class="form-group"><label>Cargo:</label><input type="text" id="inC" oninput="upd()"></div>
-    <div class="form-group"><label>Teléfono:</label><input type="text" id="inT" oninput="upd()"></div>
-    <div class="form-group"><label>Anexo:</label><input type="text" id="inA" oninput="upd()"></div>
-    <div class="form-group"><label>Email:</label><input type="text" id="inE" oninput="upd()"></div>
+    <div class="form-group"><label>Nombre:</label><input type="text" id="inN" placeholder="Ej: Verónica Quino" oninput="upd()"></div>
+    <div class="form-group"><label>Cargo:</label><input type="text" id="inC" placeholder="Ej: Sub Jefe de Administracion" oninput="upd()"></div>
+    <input type="number" id="inA" placeholder=" Ej: 8714" oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4); upd()">
+    <div class="form-group">
+    <label>Celular (sin prefijo):</label>
+    <input type="text" id="inCel" placeholder="Ej: 962383335" 
+           maxlength="9" 
+           oninput="this.value = this.value.replace(/[^0-9]/g, ''); upd()">
+</div>
+    <div class="form-group"><label>Email:</label><input type="text" id="inE" placeholder="Ej: vquino@xtrategia.com.pe" oninput="upd()"></div>
 
     <div id="preview">
         <table class="firma-table" id="captura">
             <tr>
-                <td class="logo-td">
-                    <!-- IMPORTANTE: La imagen debe estar en la misma carpeta que este HTML -->
-                   <img src="https://raw.githubusercontent.com/klt0304/firma-xtrategia/main/FIRMA.png" width="130">
+                <td class="logo-principal-td">
+                   <img src="https://raw.githubusercontent.com/klt0304/firma-xtrategia/main/FIRMA.png" width="130" style="margin-top: -20px;">
                 </td>
-                <td class="linea-td">
+                
+                <td class="datos-td">
                     <div id="outN" class="nombre">NOMBRE Y APELLIDO</div>
                     <div id="outC" class="cargo">Cargo</div>
                     <div class="datos">
-                        <span class="naranja">T:</span> <span id="outT">(511) 437 1661</span><br>
-                        <span class="naranja">A:</span> <span id="outA">8704</span><br>
-                        <span class="naranja">W:</span> www.xtrategia.com.pe<br>
-                        <span class="naranja">E:</span> <span id="outE">correo@xtrategia.com.pe</span>
+                        <span class="naranja">T:</span> +511 630 8700 - Anexo <span id="outA">8714</span><br>
+                        <span class="naranja">C:</span> +51 <span id="outCel">962 383 335</span><br>
+                        <span class="naranja">E:</span> <span id="outE">usuario@xtrategia.com.pe</span><br>
+                        <span class="naranja">W:</span> www.xtrategia.com.pe
                     </div>
+                </td>
+
+                <td class="certificaciones-td">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><img src="https://raw.githubusercontent.com/klt0304/firma-xtrategia/main/LOGO%20CORPORACION%20HODELPE%20S.A.C.%20-%20HOMOLOGADO.jpg" width="80" style="margin-right: 10px;"></td>
+                            <td><img src="https://raw.githubusercontent.com/klt0304/firma-xtrategia/main/Emprendedor.png" width="100"></td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -59,46 +74,46 @@
 
     <button class="btn" onclick="gen()">DESCARGAR FIRMA PNG</button>
 </div>
-
+</div> <div style="margin-top: 20px; font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 1px;">
+    Desarrollado por: Kevin larru Tenorio (TI) © 2026
+</div>
 <script>
-    // Actualiza los campos de la firma al escribir
-    function upd() {
+  function upd() {
+        // Agregamos .toUpperCase() al nombre para forzar las mayúsculas
         document.getElementById('outN').innerText = document.getElementById('inN').value.toUpperCase() || "NOMBRE Y APELLIDO";
+        
         document.getElementById('outC').innerText = document.getElementById('inC').value || "Cargo";
-        document.getElementById('outT').innerText = document.getElementById('inT').value || "(511) 437 1661";
-       document.getElementById('outA').innerText =document.getElementById('inA').value || "8704";
-        document.getElementById('outE').innerText = document.getElementById('inE').value || "correo@xtrategia.com.pe";
+        document.getElementById('outA').innerText = document.getElementById('inA').value || "8714";
+        document.getElementById('outCel').innerText = document.getElementById('inCel').value || "962 383 335";
+        document.getElementById('outE').innerText = document.getElementById('inE').value || "usuario@xtrategia.com.pe";
     }
 
-    // Genera la firma PNG y la descarga (100% compatible local)
-function gen() {
+    function gen() {
+        const captura = document.getElementById("captura");
+        const btn = document.querySelector(".btn");
+        btn.innerText = "GENERANDO...";
 
-    const captura = document.getElementById("captura");
+        html2canvas(captura, {
+            scale: 4,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff"
+        }).then(canvas => {
+            const link = document.createElement("a");
+            link.download = "Firma_" + (document.getElementById('inN').value || 'Xtrategia') + ".png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
 
-    html2canvas(captura, {
-        scale: 4,
-        useCORS: true,
-        allowTaint: true
-    }).then(canvas => {
-
-        const link = document.createElement("a");
-        link.download = "firma_xtrategia.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-
-        // LIMPIAR CAMPOS
-        document.getElementById("inN").value = "";
-        document.getElementById("inC").value = "";
-        document.getElementById("inT").value = "";
-        document.getElementById("inA").value = "";
-        document.getElementById("inE").value = "";
-
-        // RESTABLECER LA FIRMA
-        upd();
-
-    });
-
-}
+            // Limpiar y restablecer
+            document.getElementById("inN").value = "";
+            document.getElementById("inC").value = "";
+            document.getElementById("inA").value = "";
+            document.getElementById("inCel").value = "";
+            document.getElementById("inE").value = "";
+            btn.innerText = "DESCARGAR FIRMA PNG";
+            upd();
+        });
+    }
 </script>
 
 </body>
