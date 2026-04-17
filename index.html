@@ -79,14 +79,23 @@
 </div>
 <script>
   function upd() {
-        // Agregamos .toUpperCase() al nombre para forzar las mayúsculas
-        document.getElementById('outN').innerText = document.getElementById('inN').value.toUpperCase() || "NOMBRE Y APELLIDO";
-        
-        document.getElementById('outC').innerText = document.getElementById('inC').value || "Cargo";
-        document.getElementById('outA').innerText = document.getElementById('inA').value || "8714";
-        document.getElementById('outCel').innerText = document.getElementById('inCel').value || "962 383 335";
-        document.getElementById('outE').innerText = document.getElementById('inE').value || "usuario@xtrategia.com.pe";
-    }
+    // Capturamos el valor del input
+    let nombreInput = document.getElementById('inN').value;
+
+    // Lógica para convertir a "Nombre Propio" (Primera letra Mayúscula, resto minúscula)
+    let nombreFormateado = nombreInput.toLowerCase().split(' ').map(palabra => {
+        return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+    }).join(' ');
+
+    // Aplicamos el nombre formateado o el texto por defecto
+    document.getElementById('outN').innerText = nombreFormateado || "NOMBRE Y APELLIDO";
+    
+    // El resto del código se mantiene igual
+    document.getElementById('outC').innerText = document.getElementById('inC').value || "Cargo";
+    document.getElementById('outA').innerText = document.getElementById('inA').value || "8714";
+    document.getElementById('outCel').innerText = document.getElementById('inCel').value || "962 383 335";
+    document.getElementById('outE').innerText = document.getElementById('inE').value || "usuario@xtrategia.com.pe";
+}
 
     function gen() {
         const captura = document.getElementById("captura");
